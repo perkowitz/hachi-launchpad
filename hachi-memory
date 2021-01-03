@@ -1,0 +1,4 @@
+#!/bin/sh
+
+java -cp target/hachi-launchpad.jar net.perkowitz.issho.hachi.MemoryApp $1 $2
+
