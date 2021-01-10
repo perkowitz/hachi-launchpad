@@ -1,10 +1,12 @@
-# Issho
-A collection of standalone music tools.
-
 # Hachi
 A multi-function midi sequencer that runs on a Novation Launchpad Pro and a headless computer 
 like a Raspberry Pi. Hachi is written in Java, and so can run on a Pi (tested), 
 a Mac (tested), and many other platforms (untested), with or without keyboard and monitor.
+
+Hachi V2, which can run on multiple controllers, is a 
+[work in progress](https://github.com/perkowitz/issho). In the process of refactoring
+the code, I froze the original Hachi code in this repo. This version will probably
+not have updates beyond bug fixes and small features. 
 
 Hachi (= "eight" in Japanese) can run up to 8 "modules" at a time. Available modules 
 include several midi sequencers, a paint/animation toy, and a sequencer-controller that 

@@ -1,32 +1,31 @@
 package net.perkowitz.issho.hachi;
 
 import com.google.common.collect.Lists;
-import net.perkowitz.issho.controller.midi.MidiOut;
-import net.perkowitz.issho.controller.midi.MidiIn;
-import net.perkowitz.issho.controller.yaeltex.YaeltexHachiXL;
 import net.perkowitz.issho.devices.GridDevice;
 import net.perkowitz.issho.devices.Keyboard;
 import net.perkowitz.issho.devices.launchpad.Launchpad;
-import net.perkowitz.issho.devices.launchpadpro.*;
-import net.perkowitz.issho.devices.yaeltex.HachiTranslator;
+import net.perkowitz.issho.devices.launchpadpro.Color;
+import net.perkowitz.issho.devices.launchpadpro.LaunchpadPro;
+import net.perkowitz.issho.devices.launchpadpro.LppRhythmController;
+import net.perkowitz.issho.devices.launchpadpro.LppRhythmDisplay;
+import net.perkowitz.issho.hachi.modules.Module;
 import net.perkowitz.issho.hachi.modules.*;
 import net.perkowitz.issho.hachi.modules.deprecated.beatbox.BeatModule;
 import net.perkowitz.issho.hachi.modules.deprecated.beatbox.BeatUtil;
-import net.perkowitz.issho.hachi.modules.example.ExampleModule;
 import net.perkowitz.issho.hachi.modules.deprecated.minibeat.MinibeatModule;
 import net.perkowitz.issho.hachi.modules.deprecated.minibeat.MinibeatUtil;
 import net.perkowitz.issho.hachi.modules.deprecated.mono.MonoModule;
 import net.perkowitz.issho.hachi.modules.deprecated.mono.MonoUtil;
-import net.perkowitz.issho.hachi.modules.para.ParaModule;
-import net.perkowitz.issho.hachi.modules.para.ParaUtil;
-import net.perkowitz.issho.hachi.modules.deprecated.rhythm.RhythmModule;
 import net.perkowitz.issho.hachi.modules.deprecated.rhythm.RhythmController;
 import net.perkowitz.issho.hachi.modules.deprecated.rhythm.RhythmDisplay;
+import net.perkowitz.issho.hachi.modules.deprecated.rhythm.RhythmModule;
+import net.perkowitz.issho.hachi.modules.example.ExampleModule;
+import net.perkowitz.issho.hachi.modules.para.ParaModule;
+import net.perkowitz.issho.hachi.modules.para.ParaUtil;
 import net.perkowitz.issho.hachi.modules.seq.SeqModule;
 import net.perkowitz.issho.hachi.modules.seq.SeqUtil;
 import net.perkowitz.issho.hachi.modules.shihai.ShihaiModule;
 import net.perkowitz.issho.hachi.modules.step.StepModule;
-import net.perkowitz.issho.hachi.modules.Module;
 import net.perkowitz.issho.util.MidiUtil;
 import net.perkowitz.issho.util.MultiReceiver;
 import net.perkowitz.issho.util.SettingsUtil;
@@ -44,7 +43,8 @@ import java.util.Properties;
 import java.util.concurrent.CountDownLatch;
 
 import static net.perkowitz.issho.devices.launchpadpro.Color.BRIGHT_ORANGE;
-import static net.perkowitz.issho.hachi.modules.seq.SeqUtil.SeqMode.*;
+import static net.perkowitz.issho.hachi.modules.seq.SeqUtil.SeqMode.BEAT;
+import static net.perkowitz.issho.hachi.modules.seq.SeqUtil.SeqMode.MONO;
 
 /**
  * Created by optic on 9/19/16.
@@ -247,16 +247,6 @@ public class Hachi {
                         gridDevice = new LaunchpadPro(output.getReceiver(), null);
                     } else if (type.equals("launchpad")) {
                         gridDevice = new Launchpad(output.getReceiver(), null);
-                    } else if (type.equals("yaeltex")) {
-                        MidiOut midiOut = new MidiOut(output.getReceiver());
-                        MidiIn midiIn = new MidiIn();
-                        Transmitter transmitter = output.getTransmitter();
-                        transmitter.setReceiver(midiIn);
-                        YaeltexHachiXL hachi = new YaeltexHachiXL(midiOut, null);
-                        HachiTranslator hachiTranslator = new HachiTranslator(hachi);
-                        hachi.setListener(hachiTranslator);
-                        midiIn.addChannelListener(hachi);
-                        gridDevice = hachiTranslator;
                     } else {
                         gridDevice = new LaunchpadPro(output.getReceiver(), null);
                     }
